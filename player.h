@@ -2,6 +2,8 @@
 
 #include "Vec2.h"
 
+class SceneMain;	//相互にヘッダーのインクルードが必要な時、後で使う宣言をする
+
 class Player
 {
 public:
@@ -13,6 +15,8 @@ public:
 
 	// プレイヤーの初期化
 	void init();
+	//SceneMainクラスのポインタ
+	void setMain(SceneMain* pMain) { m_pMain = pMain; }
 
 	// 処理
 	void update();
@@ -27,10 +31,15 @@ public:
 private:
 	int m_handle;
 
+	//SceneMainのポインタ
+	SceneMain* m_pMain;
+
 	// 表示位置
 	Vec2 m_pos;
 	// 移動
 	Vec2 m_vec;
+	//ショットの発射間隔
+	int m_shotInterval;
 
 	//ショットが手の位置から発射
 	Vec2 m_startPos;

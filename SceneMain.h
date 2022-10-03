@@ -18,6 +18,9 @@ public:
 	void update();
 	// 毎フレームの描画
 	void draw();
+
+	//弾の生成
+	bool createShot(Vec2 pos);
 	
 private:
 	// ショットの最大数
@@ -32,6 +35,4 @@ private:
 	Player m_player;
 	// ショット
 	Shot m_shot[kShotMax];
-	//ショットの発射間隔
-	int m_shotInterval;
 };

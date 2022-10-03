@@ -2,16 +2,23 @@
 #include "game.h"
 #include "player.h"
 
+#include "SceneMain.h"
+
 namespace
 {
 	// X方向、Y方向の最大速度
 	constexpr float kSpeedMax = 8.0f;
 	constexpr float kAcc = 0.4f;
+
+	//ショットの発射間隔
+	constexpr int kShotInterval = 16;
 }
 
 Player::Player()
 {
 	m_handle = -1;
+	m_pMain = nullptr;	//nullポインタ　おかしな値が入力されたら処理を終了する
+	m_shotInterval = 0;
 }
 
 Player::~Player()
@@ -25,6 +32,7 @@ void Player::init()
 	m_pos.y = 100.0f;
 	m_vec.x = 0.0f;
 	m_vec.y = 0.0f;
+	m_shotInterval = 0;
 
 	m_startPos.x = 160.0f;
 	m_startPos.y = 132.0f;
@@ -34,6 +42,19 @@ void Player::update()
 {
 	// パッド(もしくはキーボード)からの入力を取得する
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+
+	//ショットを撃つ処理
+	m_shotInterval--;
+	if (m_shotInterval < 0)	m_shotInterval = 0;
+
+	if ((padState & PAD_INPUT_1) && (m_shotInterval <= 0))
+	{
+		if (m_pMain->createShot(getStartPos()))
+		{
+			m_shotInterval = kShotInterval;
+		}
+	}
+
 	if (padState & PAD_INPUT_UP)
 	{
 		//加速度を変化
