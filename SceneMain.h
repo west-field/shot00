@@ -1,7 +1,7 @@
 #pragma once
 
 #include "player.h"
-#include "ShotNormal.h"
+#include "ShotSlanting.h"
 
 class SceneMain
 {
@@ -34,5 +34,5 @@ private:
 	// プレイヤー
 	Player m_player;
 	// ショット
-	ShotNormal m_shot[kShotMax];
+	ShotSlanting m_shot[kShotMax];
 };
