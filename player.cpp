@@ -33,6 +33,7 @@ void Player::update()
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	if (padState & PAD_INPUT_UP)
 	{
+		//‰Á‘¬“x‚ð•Ï‰»
 		m_vec.y -= kAcc;
 		if (m_vec.y < -kSpeedMax)	m_vec.y = -kSpeedMax;
 	}
@@ -43,6 +44,7 @@ void Player::update()
 	}
 	else
 	{
+		//ƒL[‚ð—£‚µ‚½‚ç‚¾‚ñ‚¾‚ñ’x‚­‚·‚é
 		m_vec.y *= 0.9f;
 	}
 	if (padState & PAD_INPUT_LEFT)
