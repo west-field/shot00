@@ -25,6 +25,9 @@ void Player::init()
 	m_pos.y = 100.0f;
 	m_vec.x = 0.0f;
 	m_vec.y = 0.0f;
+
+	m_startPos.x = 160.0f;
+	m_startPos.y = 132.0f;
 }
 
 void Player::update()
@@ -62,6 +65,7 @@ void Player::update()
 		m_vec.x *= 0.9f;
 	}
 	m_pos += m_vec;
+	m_startPos += m_vec;
 }
 
 void Player::draw()

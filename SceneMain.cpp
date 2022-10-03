@@ -62,7 +62,7 @@ void SceneMain::update()
 		{
 			if (shot.isExist())	continue;	//Šù‚ÉŽg‚í‚ê‚Ä‚¢‚½‚çŽŸ‚Ö
 
-			shot.start(m_player.getPos());	//Žg‚í‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç‘Å‚Â
+			shot.start(m_player.getStartPos());	//Žg‚í‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç‘Å‚Â
 			m_shotInterval = kShotInterval;
 			break;
 		}
