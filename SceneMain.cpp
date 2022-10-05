@@ -27,9 +27,17 @@ void SceneMain::init()
 	m_player.init();
 	m_player.setMain(this);	//自身のポインタを取得する場合 this を使う
 
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotNormal)
 	{
-		shot.setHandle(m_hShotGraphic);
+		shot = nullptr;	//	何も入っていない状態で初期化
+	}
+	for (auto& shot : m_pShotBound)
+	{
+		shot = nullptr;
+	}
+	for (auto& shot : m_pShotMeandeling)
+	{
+		shot = nullptr;
 	}
 }
 
@@ -38,15 +46,45 @@ void SceneMain::end()
 {
 	DeleteGraph(m_hPlayerGraphic);
 	DeleteGraph(m_hShotGraphic);
+
+	for (auto& shot : m_pShotNormal)
+	{
+		if (!shot)	continue;//nullptrの時中には何もないからdeleteしない
+		delete shot;		//確保されていたらdelete
+		shot = nullptr;		//中身をnullptrに
+	}
+	for (auto& shot : m_pShotBound)
+	{
+		if (!shot)	continue;
+		delete shot;
+		shot = nullptr;
+	}
+	for (auto& shot : m_pShotMeandeling)
+	{
+		if (!shot)	continue;
+		delete shot;
+		shot = nullptr;
+	}
 }
 
 // 毎フレームの処理
 void SceneMain::update()
 {
 	m_player.update();
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotNormal)
 	{
-		shot.update();
+		if (!shot)	continue;//中身があるかどうか　nullptrの時continue
+		shot->update();
+	}
+	for (auto& shot : m_pShotBound)
+	{
+		if (!shot)	continue;
+		shot->update();
+	}
+	for (auto& shot : m_pShotMeandeling)
+	{
+		if (!shot)	continue;
+		shot->update();
 	}
 }
 
@@ -55,28 +93,100 @@ void SceneMain::draw()
 {
 	m_player.draw();
 
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotNormal)
 	{
-		shot.draw();
+		if (!shot)	continue;
+		shot->draw();
+		if (!shot->isExist())
+		{
+			delete shot;
+			shot = nullptr;
+		}
+	}
+	for (auto& shot : m_pShotBound)
+	{
+		if (!shot)	continue;
+		shot->draw();
+		if (!shot->isExist())
+		{
+			delete shot;
+			shot = nullptr;
+		}
+	}
+	for (auto& shot : m_pShotMeandeling)
+	{
+		if (!shot)	continue;
+		shot->draw();
+		if (!shot->isExist())
+		{
+			delete shot;
+			shot = nullptr;
+		}
 	}
 
 	//現在存在している弾の数を表示
 	int shotNum = 0;
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotNormal)
 	{
-		if (shot.isExist())	shotNum++;
+		if (!shot)	continue;
+		if (shot->isExist())	shotNum++;
 	}
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "弾の数:%d", shotNum);
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "Normal:%d", shotNum);
+	
+	shotNum = 0;
+	for (auto& shot : m_pShotBound)
+	{
+		if (!shot)	continue;
+		if (shot->isExist())	shotNum++;
+	}
+	DrawFormatString(0, 20, GetColor(255, 255, 255), "Bound:%d", shotNum);
+
+	shotNum = 0;
+	for (auto& shot : m_pShotMeandeling)
+	{
+		if (!shot)	continue;
+		if (shot->isExist())	shotNum++;
+	}
+	DrawFormatString(0, 40, GetColor(255, 255, 255), "Meandeling:%d", shotNum);
+
 }
 
 //弾の生成
-bool SceneMain::createShot(Vec2 pos)
+bool SceneMain::createShotNormal(Vec2 pos)
 {
-	for (auto& shot : m_shot)
+	for (auto& shot : m_pShotNormal)
 	{
-		if (shot.isExist())	continue;	//既に使われていたら次へ
+		if (shot)	continue;	//すでにある場合は処理しない
 
-		shot.start(pos);	//使われていなかったら打つ
+		shot = new ShotNormal;
+		shot->setHandle(m_hShotGraphic);
+		shot->start(pos);
+		return true;
+	}
+	return false;
+}
+bool SceneMain::createShotBound(Vec2 pos)
+{
+	for (auto& shot : m_pShotBound)
+	{
+		if (shot)	continue;
+
+		shot = new ShotBound;				//メモリを確保
+		shot->setHandle(m_hShotGraphic);	//確保したメモリに住所を指定
+		shot->start(pos);
+		return true;
+	}
+	return false;
+}
+bool SceneMain::createShotMeandeling(Vec2 pos)
+{
+	for (auto& shot : m_pShotMeandeling)
+	{
+		if (shot)	continue;
+
+		shot = new ShotMeandeling;
+		shot->setHandle(m_hShotGraphic);
+		shot->start(pos);
 		return true;
 	}
 	return false;

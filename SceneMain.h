@@ -1,6 +1,8 @@
 #pragma once
 
 #include "player.h"
+#include "ShotNormal.h"
+#include "ShotBound.h"
 #include "ShotMeandeling.h"
 
 class SceneMain
@@ -20,7 +22,9 @@ public:
 	void draw();
 
 	//弾の生成
-	bool createShot(Vec2 pos);
+	bool createShotNormal(Vec2 pos);
+	bool createShotBound(Vec2 pos);
+	bool createShotMeandeling(Vec2 pos);
 	
 private:
 	// ショットの最大数
@@ -30,13 +34,17 @@ private:
 
 	// プレイヤーのグラフィックハンドル
 	int m_hPlayerGraphic;
+	//ショットのグラフィックハンドル
 	int m_hShotGraphic;
 	// プレイヤー
 	Player m_player;
 	// ショット
-//	ShotNormal m_shot[kShotMax];//まっすぐ
-// ShotSlanting m_shot[kShotMax];//斜め
-//	ShotMeandeling m_shot[kShotMax];//meandeling
-//	ShotBound m_shot[kShotMax];
-	ShotMeandeling m_shot[kShotMax];
+
+//	ShotBase* m_pShot[kShotMax];//ベースクラスのポインタに継承先のクラスを入れることができる
+
+	ShotNormal* m_pShotNormal[kShotMax];//まっすぐ
+// ShotSlanting* m_shot[kShotMax];//斜め
+	ShotMeandeling* m_pShotMeandeling[kShotMax];//蛇行
+	ShotBound* m_pShotBound[kShotMax];//反射
+//	ShotSin* m_shotSin[kShotMax];
 };

@@ -49,7 +49,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 	}
 
-	// 画像のアンロード
+	// delete処理
 	scene.end();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
