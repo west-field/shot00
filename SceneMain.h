@@ -1,7 +1,7 @@
 #pragma once
 
 #include "player.h"
-#include "ShotParabola.h"
+#include "ShotMeandeling.h"
 
 class SceneMain
 {
@@ -36,6 +36,7 @@ private:
 	// ÉVÉáÉbÉg
 //	ShotNormal m_shot[kShotMax];//Ç‹Ç¡Ç∑ÇÆ
 // ShotSlanting m_shot[kShotMax];//éŒÇﬂ
-	ShotParabola m_shot[kShotMax];//ï˙ï®ê¸
-
+//	ShotMeandeling m_shot[kShotMax];//meandeling
+//	ShotBound m_shot[kShotMax];
+	ShotMeandeling m_shot[kShotMax];
 };
