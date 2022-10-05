@@ -1,9 +1,7 @@
 #pragma once
 
 #include "player.h"
-#include "ShotNormal.h"
-#include "ShotBound.h"
-#include "ShotMeandeling.h"
+#include "ShotBase.h"
 
 class SceneMain
 {
@@ -40,11 +38,11 @@ private:
 	Player m_player;
 	// ショット
 
-//	ShotBase* m_pShot[kShotMax];//ベースクラスのポインタに継承先のクラスを入れることができる
+	ShotBase* m_pShot[kShotMax];//ベースクラスのポインタに継承先のクラスを入れることができる
 
-	ShotNormal* m_pShotNormal[kShotMax];//まっすぐ
+//	ShotBound* m_pShotBound[kShotMax];//反射
+//	ShotMeandeling* m_pShotMeandeling[kShotMax];//蛇行
+//	ShotNormal* m_pShotNormal[kShotMax];//まっすぐ
 // ShotSlanting* m_shot[kShotMax];//斜め
-	ShotMeandeling* m_pShotMeandeling[kShotMax];//蛇行
-	ShotBound* m_pShotBound[kShotMax];//反射
 //	ShotSin* m_shotSin[kShotMax];
 };
