@@ -5,7 +5,7 @@
 class ShotBound : public ShotBase
 {
 public:
-	ShotBound() {}
+	ShotBound() { m_boundCount = 0; }
 	virtual ~ShotBound() {}
 
 	//ショット開始
