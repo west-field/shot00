@@ -20,7 +20,7 @@ void ShotBound::start(Vec2 pos)
 	ShotBase::start(pos);
 
 	float randAngle = static_cast<float>(GetRand(359));
-	float rad = randAngle * 3.14159f / 180.0;//ラジアンに変換
+	float rad = static_cast<float>(randAngle * 3.14159f / 180.0);//ラジアンに変換
 
 	m_vec.x = cosf(rad) * kShotSpeed;
 	m_vec.y = sinf(rad) * kShotSpeed;
