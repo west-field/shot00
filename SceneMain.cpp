@@ -1,6 +1,8 @@
 #include "DxLib.h"
 #include "SceneMain.h"
 
+#include <cassert>
+
 #include "ShotBound.h"
 #include "ShotMeandeling.h"
 #include "ShotNormal.h"
@@ -41,7 +43,7 @@ void SceneMain::end()
 
 	for (auto& pShot : m_pShotVt)
 	{
-		if (!pShot)	continue;//nullptr‚Ì’†‚É‚Í‰½‚à‚È‚¢‚©‚çdelete‚µ‚È‚¢
+		assert(pShot);
 		delete pShot;		//Šm•Û‚³‚ê‚Ä‚¢‚½‚çdelete
 		pShot = nullptr;		//’†g‚ğnullptr‚É
 	}
