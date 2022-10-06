@@ -24,7 +24,7 @@ void ShotSlanting::update()
 
 	if (m_isExist)
 	{
-		m_vec.y = kGravity;//ジャンプ開始
+		m_vec.y = kGravity;
 	}
 
 	m_vec.y += kGravity;
