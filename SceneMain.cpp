@@ -31,12 +31,6 @@ void SceneMain::init()
 	m_player.setHandle(m_hPlayerGraphic);
 	m_player.init();
 	m_player.setMain(this);	//自身のポインタを取得する場合 this を使う
-
-	for (auto& pShot : m_pShot)
-	{
-		pShot = nullptr;	//	何も入っていない状態で初期化
-	}
-	
 }
 
 // 終了処理
@@ -45,7 +39,7 @@ void SceneMain::end()
 	DeleteGraph(m_hPlayerGraphic);
 	DeleteGraph(m_hShotGraphic);
 
-	for (auto& pShot : m_pShot)
+	for (auto& pShot : m_pShotVt)
 	{
 		if (!pShot)	continue;//nullptrの時中には何もないからdeleteしない
 		delete pShot;		//確保されていたらdelete
@@ -57,10 +51,28 @@ void SceneMain::end()
 void SceneMain::update()
 {
 	m_player.update();
-	for (auto& pShot : m_pShot)
+	std::vector<ShotBase*>::iterator it = m_pShotVt.begin();
+	while (it != m_pShotVt.end())
 	{
-		if (!pShot)	continue;//中身があるかどうか　nullptrの時continue
+		auto& pShot = (*it);
+
+		if (!pShot)
+		{
+			it++;
+			continue;//中身があるかどうか　nullptrの時continue
+		}
 		pShot->update();
+		if (!pShot->isExist())
+		{
+			delete pShot;
+			pShot = nullptr;
+
+			//vector要素の削除
+			it = m_pShotVt.erase(it);
+			continue;
+		}
+
+		it++;
 	}
 }
 
@@ -69,64 +81,41 @@ void SceneMain::draw()
 {
 	m_player.draw();
 
-	for (auto& pShot : m_pShot)
+	for (auto& pShot : m_pShotVt)
 	{
 		if (!pShot)	continue;
 		pShot->draw();
-		if (!pShot->isExist())
-		{
-			delete pShot;
-			pShot = nullptr;
-		}
 	}
 
 	//現在存在している弾の数を表示
-	int shotNum = 0;
-	for (auto& pShot : m_pShot)
-	{
-		if (!pShot)	continue;
-		if (pShot->isExist())	shotNum++;
-	}
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "弾の数:%d", shotNum);
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "弾の数:%d", m_pShotVt.size());
 }
 
 //弾の生成
 bool SceneMain::createShotNormal(Vec2 pos)
 {
-	for (auto& pShot : m_pShot)
-	{
-		if (pShot)	continue;	//すでにある場合は処理しない
+	ShotNormal* pShot = new ShotNormal;
+	pShot->setHandle(m_hShotGraphic);
+	pShot->start(pos);
+	m_pShotVt.push_back(pShot);
 
-		pShot = new ShotNormal;	//	ここを書き換えると変更できる
-		pShot->setHandle(m_hShotGraphic);
-		pShot->start(pos);
-		return true;
-	}
-	return false;
+	return true;
 }
 bool SceneMain::createShotBound(Vec2 pos)
 {
-	for (auto& pShot : m_pShot)
-	{
-		if (pShot)	continue;
+	ShotBound* pShot = new ShotBound;
+	pShot->setHandle(m_hShotGraphic);
+	pShot->start(pos);
+	m_pShotVt.push_back(pShot);
 
-		pShot = new ShotBound;				//メモリを確保
-		pShot->setHandle(m_hShotGraphic);	//確保したメモリに住所を指定
-		pShot->start(pos);
-		return true;
-	}
-	return false;
+	return true;
 }
 bool SceneMain::createShotMeandeling(Vec2 pos)
 {
-	for (auto& pShot : m_pShot)
-	{
-		if (pShot)	continue;
+	ShotMeandeling* pShot = new ShotMeandeling;
+	pShot->setHandle(m_hShotGraphic);
+	pShot->start(pos);
+	m_pShotVt.push_back(pShot);
 
-		pShot = new ShotMeandeling;
-		pShot->setHandle(m_hShotGraphic);
-		pShot->start(pos);
-		return true;
-	}
-	return false;
+	return true;
 }

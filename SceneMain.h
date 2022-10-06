@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "player.h"
 #include "ShotBase.h"
 
@@ -25,10 +26,6 @@ public:
 	bool createShotMeandeling(Vec2 pos);
 	
 private:
-	// ショットの最大数
-	static constexpr int kShotMax = 64;
-
-private:
 
 	// プレイヤーのグラフィックハンドル
 	int m_hPlayerGraphic;
@@ -37,8 +34,8 @@ private:
 	// プレイヤー
 	Player m_player;
 	// ショット
-
-	ShotBase* m_pShot[kShotMax];//ベースクラスのポインタに継承先のクラスを入れることができる
+	std::vector<ShotBase*> m_pShotVt;
+//	ShotBase* m_pShot[kShotMax];//ベースクラスのポインタに継承先のクラスを入れることができる
 
 //	ShotBound* m_pShotBound[kShotMax];//反射
 //	ShotMeandeling* m_pShotMeandeling[kShotMax];//蛇行
