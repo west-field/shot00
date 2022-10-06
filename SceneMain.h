@@ -23,7 +23,7 @@ public:
 	//íeÇÃê∂ê¨
 	bool createShotNormal(Vec2 pos);
 	bool createShotBound(Vec2 pos);
-	bool createShotMeandeling(Vec2 pos);
+	bool createShotSin(Vec2 pos);
 	
 private:
 

@@ -42,10 +42,7 @@
     <ClCompile Include="ShotNormal.cpp">
       <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
-    <ClCompile Include="ShotMeandeling.cpp">
-      <Filter>ソース ファイル\Shot</Filter>
-    </ClCompile>
-    <ClCompile Include="ShotSlanting.cpp">
+    <ClCompile Include="ShotSin.cpp">
       <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,13 +65,10 @@
     <ClInclude Include="ShotBound.h">
       <Filter>ヘッダー ファイル\Shot</Filter>
     </ClInclude>
-    <ClInclude Include="ShotMeandeling.h">
-      <Filter>ヘッダー ファイル\Shot</Filter>
-    </ClInclude>
     <ClInclude Include="ShotNormal.h">
       <Filter>ヘッダー ファイル\Shot</Filter>
     </ClInclude>
-    <ClInclude Include="ShotSlanting.h">
+    <ClInclude Include="ShotSin.h">
       <Filter>ヘッダー ファイル\Shot</Filter>
     </ClInclude>
   </ItemGroup>

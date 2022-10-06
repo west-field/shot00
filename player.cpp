@@ -65,7 +65,7 @@ void Player::update()
 		}
 		if (padState & PAD_INPUT_3)
 		{
-			if (m_pMain->createShotMeandeling(getStartPos()))
+			if (m_pMain->createShotSin(getStartPos()))
 			{
 				m_shotInterval = kShotInterval;
 			}

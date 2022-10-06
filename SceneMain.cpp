@@ -4,9 +4,8 @@
 #include <cassert>
 
 #include "ShotBound.h"
-#include "ShotMeandeling.h"
 #include "ShotNormal.h"
-#include "ShotSlanting.h"
+#include "ShotSin.h"
 
 namespace
 {
@@ -112,9 +111,9 @@ bool SceneMain::createShotBound(Vec2 pos)
 
 	return true;
 }
-bool SceneMain::createShotMeandeling(Vec2 pos)
+bool SceneMain::createShotSin(Vec2 pos)
 {
-	ShotMeandeling* pShot = new ShotMeandeling;
+	ShotSin* pShot = new ShotSin;
 	pShot->setHandle(m_hShotGraphic);
 	pShot->start(pos);
 	m_pShotVt.push_back(pShot);
