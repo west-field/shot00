@@ -28,9 +28,10 @@ public:
 
 	Vec2 getStartPos() const { return m_startPos; }
 
+	void setShotSe(int shotSe){ m_hShotSe = shotSe; }
 private:
 	int m_handle;
-
+	int m_hShotSe;
 	//SceneMain‚Ìƒ|ƒCƒ“ƒ^
 	SceneMain* m_pMain;
 

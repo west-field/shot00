@@ -19,6 +19,7 @@ Player::Player()
 	m_handle = -1;
 	m_pMain = nullptr;	//nullポインタ　おかしな値が入力されたら処理を終了する
 	m_shotInterval = 0;
+	m_hShotSe = -1;
 }
 
 Player::~Player()
@@ -55,6 +56,7 @@ void Player::update()
 			{
 				m_shotInterval = kShotInterval;
 			}
+			PlaySoundMem(m_hShotSe, DX_PLAYTYPE_BACK, true);
 		}
 		if (padState & PAD_INPUT_2)
 		{
@@ -62,6 +64,7 @@ void Player::update()
 			{
 				m_shotInterval = kShotInterval;
 			}
+			PlaySoundMem(m_hShotSe, DX_PLAYTYPE_BACK, true);
 		}
 		if (padState & PAD_INPUT_3)
 		{
@@ -69,6 +72,7 @@ void Player::update()
 			{
 				m_shotInterval = kShotInterval;
 			}
+			PlaySoundMem(m_hShotSe, DX_PLAYTYPE_BACK, true);
 		}
 	}
 
